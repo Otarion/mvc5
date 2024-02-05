@@ -2,26 +2,32 @@
 
 namespace MVC;
 
+use Symfony\Component\HttpFoundation\Response;
+
 class Router
 {
     /**
      * Cette propriété va contenir toutes les instances de Route qui sont dans le fichier routes.php
      */
     protected array $routes;
+    protected Request $request;
+    protected Response $response;
 
     /**
      * On récupère le service request qui a été injecté dans le constructeur depuis la méthode boot()
      */
-    public function __construct(protected Request $request)
+    public function __construct(Request $request, Response $response)
     {
         // On récupère les instances de Route et on les stocke dans la propriété $route
         $this->routes = require __DIR__ . '/../routes.php';
+        $this -> request = $resquest;
+        $this -> response = $response;
     }
 
     /**
      * Cette méthode est appelée depuis le front-controller (public/index.php) et est chargée de trouver l'action correspondant à la requête puis de l'exécuter
      */
-    public function dispatch()
+    public function dispatch() : Response
     {
         // Méthode permettant de trouver l'action correspondant à la requête
         $route = $this->getMatchedRoute();
@@ -78,14 +84,20 @@ class Router
     /**
      * Permet d'instancier le contrôleur qui correspond à la route qui a matchée
      */
-    protected function makeResponse(Route $route)
+    protected function makeResponse(Route $route) : Response
     {
         [$controller, $method] = $route->action;
 
         // Nouvelle instance du contrôleur (correspond à new HelloController() si jamais $controller = HelloController::class)
-        $controller = new $controller();
+        $controller = new $controller($this->response);
 
         // On appelle ensuite l'action (correspond à $controller->hello('Steven') si jamais l'utilisateur à tenté d'accéder à l'URI /hello/Steven)
-        $controller->$method(...$route->getParams());
+        $result = $controller->$method(...$route->getParams());
+
+        if ($result instanceof Response) {
+            return $result;
+        } 
+        throw new \RuntimeException ("Le contrôleur ne renvoit pas de réponse.");
     }
+
 }

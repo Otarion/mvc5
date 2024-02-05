@@ -34,7 +34,11 @@ class App
         // On enregistre le service router et on lui injecte le service request pour l'utiliser facilement depuis celui-ci
         $this->singleton('router', fn (App $app) => new Router(
             $app->make('request'),
+            $app->make('response'), // Ajout du service response
         ));
+
+        //On enregistre le service response 
+        $this -> singleton ('response', fn () => new \Symfony\Component\HttpFoundation\Response());
     }
 
     // Permet d'ajouter un service au service container

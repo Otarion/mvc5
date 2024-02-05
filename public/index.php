@@ -13,4 +13,6 @@ $app->boot();
 // On récupère l'instance du service router
 $router = $app->make('router');
 // On appelle sa méthode dispatch() pour trouver la route correspondant à la requête de notre visiteur
-$router->dispatch();
+$response = $router->dispatch();
+//Envoyer une réponse au visiteur
+$response-> send();
