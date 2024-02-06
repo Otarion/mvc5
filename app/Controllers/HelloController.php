@@ -1,16 +1,18 @@
 <?php
 
 namespace App\Controllers;
+use Symfony\Component\HttpFoundation\Response;
 
 class HelloController extends Controller
 {
+
     public function index()
     {
-        echo 'Hello world';
+        return new Response ('Hello world');
     }
 
     public function hello(string $name)
     {
-        echo 'Hello ' . $name;
+        return new Response ('Hello ' . $name);
     }
 }

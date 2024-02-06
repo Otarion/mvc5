@@ -88,10 +88,8 @@ class Router
     protected function makeResponse(Route $route) : Response
     {
         [$controller, $method] = $route->action;
-
         // Nouvelle instance du contrôleur (correspond à new HelloController() si jamais $controller = HelloController::class)
         $controller = new $controller($this->response);
-
         // On appelle ensuite l'action (correspond à $controller->hello('Steven') si jamais l'utilisateur à tenté d'accéder à l'URI /hello/Steven)
         $result = $controller->$method(...$route->getParams());
 
