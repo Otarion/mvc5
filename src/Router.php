@@ -103,5 +103,4 @@ class Router
         } 
         throw new \RuntimeException ("Le contrôleur ne renvoit pas de réponse.");
     }
-
 }
