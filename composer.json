@@ -1,7 +1,7 @@
 {
     "require": {
         "symfony/http-foundation": "^7.0",
-        "twig/twig": "^3.8",
+        "twig/twig": "^3.0",
         "illuminate/database": "^10.42",
         "vlucas/valitron": "^1.4"
     },

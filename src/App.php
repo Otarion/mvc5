@@ -34,10 +34,18 @@ class App
         // On enregistre le service request (On créé l'instance avec la méthode createFromGlobals() : https://symfony.com/doc/current/components/http_foundation.html#request)
         $this->singleton('request', fn(App $app) => Request::createFromGlobals());
 
+        $this->singleton('twig', function () {
+            $loader = new \Twig\Loader\FilesystemLoader(__DIR__.'/resources/views');
+            return new \Twig\Environment($loader, [
+            'cache' => false,
+            ]);
+        });
+
         // On enregistre le service router et on lui injecte le service request pour l'utiliser facilement depuis celui-ci
         $this->singleton('router', fn (App $app) => new Router(
             $app->make('request'),
-            $app->make('response'), // Ajout du service response
+            $app->make('response'), 
+            $app->make('twig'),
         ));
 
     }

@@ -3,6 +3,7 @@
 namespace MVC;
 
 use Symfony\Component\HttpFoundation\Response;
+use Twig\Environment;
 
 class Router
 {
@@ -12,16 +13,18 @@ class Router
     protected array $routes;
     protected Request $request;
     protected Response $response;
+    protected Environment $twig;
 
     /**
      * On récupère le service request qui a été injecté dans le constructeur depuis la méthode boot()
      */
-    public function __construct(Request $request, Response $response)
+    public function __construct(Request $request, Response $response, Environment $twig)
     {
         // On récupère les instances de Route et on les stocke dans la propriété $route
         $this->routes = require __DIR__ . '/../routes.php';
         $this->request = $request;
         $this->response = $response;
+        $this->twig = $twig;
     }
 
     /**

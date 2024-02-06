@@ -11,8 +11,8 @@ class HelloController extends Controller
         return new Response ('Hello world');
     }
 
-    public function hello(string $name)
+    public function hello(string $name): Response
     {
-        return new Response ('Hello ' . $name);
+        return $this->view('hello.html', ['name' => $name]);
     }
 }
