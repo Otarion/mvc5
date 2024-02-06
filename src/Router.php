@@ -92,7 +92,7 @@ class Router
     {
         [$controller, $method] = $route->action;
         // Nouvelle instance du contrôleur (correspond à new HelloController() si jamais $controller = HelloController::class)
-        $controller = new $controller($this->response);
+        $controller = new $controller($this->response, $this->twig);
         // On appelle ensuite l'action (correspond à $controller->hello('Steven') si jamais l'utilisateur à tenté d'accéder à l'URI /hello/Steven)
         $result = $controller->$method(...$route->getParams());
 

@@ -17,7 +17,7 @@ $response = $router->dispatch();
 //Envoyer une réponse au visiteur
 $response-> send();
 
-$loader = new \Twig\Loader\FilesystemLoader(__DIR__.'/resources/views');
+$loader = new \Twig\Loader\FilesystemLoader;
 $twig = new \Twig\Environment($loader, [
     'cache' => false,
 ]);

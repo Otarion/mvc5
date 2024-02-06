@@ -35,7 +35,7 @@ class App
         $this->singleton('request', fn(App $app) => Request::createFromGlobals());
 
         $this->singleton('twig', function () {
-            $loader = new \Twig\Loader\FilesystemLoader(__DIR__.'/resources/views');
+            $loader = new \Twig\Loader\FilesystemLoader;
             return new \Twig\Environment($loader, [
             'cache' => false,
             ]);
