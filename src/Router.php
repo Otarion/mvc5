@@ -20,8 +20,8 @@ class Router
     {
         // On récupère les instances de Route et on les stocke dans la propriété $route
         $this->routes = require __DIR__ . '/../routes.php';
-        $this -> request = $resquest;
-        $this -> response = $response;
+        $this->request = $request;
+        $this->response = $response;
     }
 
     /**
@@ -66,6 +66,7 @@ class Router
 
             // Si la méthode ET l'URI correspondent, on a trouvé notre route !!!
             if ($goodMethod && $goodURI) {
+                
                 // La variable $params indiqué en 3ème argument de preg_match() au dessus récupère automatiquement tous les paramètres variables de notre URI ! Mais la première valeur va contenir toute l'URI qui ne nous intéresse pas. On vient donc la supprimer avec array_shift()
                 array_shift($params);
 
@@ -96,6 +97,9 @@ class Router
 
         if ($result instanceof Response) {
             return $result;
+
+        }elseif (is_string($result)) {
+            return new Response($result);
         } 
         throw new \RuntimeException ("Le contrôleur ne renvoit pas de réponse.");
     }

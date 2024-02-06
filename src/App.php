@@ -28,6 +28,9 @@ class App
     // Ajout des services au service container
     public function boot(): void
     {
+        //On enregistre le service response 
+        $this->singleton('response', fn()=>new \Symfony\Component\HttpFoundation\Response());
+
         // On enregistre le service request (On créé l'instance avec la méthode createFromGlobals() : https://symfony.com/doc/current/components/http_foundation.html#request)
         $this->singleton('request', fn(App $app) => Request::createFromGlobals());
 
@@ -37,8 +40,6 @@ class App
             $app->make('response'), // Ajout du service response
         ));
 
-        //On enregistre le service response 
-        $this -> singleton ('response', fn () => new \Symfony\Component\HttpFoundation\Response());
     }
 
     // Permet d'ajouter un service au service container

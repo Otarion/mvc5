@@ -2,7 +2,7 @@
 
 namespace App\Controllers;
 
-use MVC\Response;
+use Symfony\Component\HttpFoundation\Response;
 
 class Controller {
     protected Response $response;

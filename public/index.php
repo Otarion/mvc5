@@ -16,3 +16,4 @@ $router = $app->make('router');
 $response = $router->dispatch();
 //Envoyer une réponse au visiteur
 $response-> send();
+
